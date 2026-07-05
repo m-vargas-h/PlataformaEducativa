@@ -81,6 +81,13 @@
 			<scope>runtime</scope>
 		</dependency>
 
+		<!-- Oracle JDBC Driver -->
+		<dependency>
+			<groupId>com.oracle.database.jdbc</groupId>
+			<artifactId>ojdbc11</artifactId>
+			<version>23.5.0.24.07</version>
+		</dependency>
+
 		<!-- Spring Dotenv -->
 		<dependency>
 			<groupId>me.paulschwarz</groupId>
@@ -100,6 +107,24 @@
 			<groupId>software.amazon.awssdk</groupId>
 			<artifactId>sts</artifactId>
 			<version>2.25.60</version>
+		</dependency>
+
+		<!-- RabbitMQ -->
+		<dependency>
+			<groupId>org.springframework.boot</groupId>
+			<artifactId>spring-boot-starter-amqp</artifactId>
+		</dependency>
+
+		<!-- Jackson 2 clásico -->
+		<dependency>
+			<groupId>com.fasterxml.jackson.core</groupId>
+			<artifactId>jackson-databind</artifactId>
+		</dependency>
+
+		<!-- Soporte para LocalDateTime en la serialización JSON de RabbitMQ -->
+		<dependency>
+			<groupId>com.fasterxml.jackson.datatype</groupId>
+			<artifactId>jackson-datatype-jsr310</artifactId>
 		</dependency>
 	</dependencies>
 

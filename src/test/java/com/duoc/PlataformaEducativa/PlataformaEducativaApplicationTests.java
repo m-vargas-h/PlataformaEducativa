@@ -12,7 +12,11 @@ import org.springframework.test.context.TestPropertySource;
     "aws.secretKey=test",
     "aws.sessionToken=test",
     "aws.region=us-east-1",
-    "aws.s3.bucketName=test-bucket"
+    "aws.s3.bucketName=test-bucket",
+    "spring.rabbitmq.host=localhost",
+    "spring.rabbitmq.port=5672",
+    "spring.rabbitmq.username=test",
+    "spring.rabbitmq.password=test"
 })
 class PlataformaEducativaApplicationTests {
 

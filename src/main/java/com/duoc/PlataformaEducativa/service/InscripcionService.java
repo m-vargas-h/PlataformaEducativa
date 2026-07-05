@@ -1,5 +1,6 @@
 package com.duoc.PlataformaEducativa.service;
 
+import com.duoc.PlataformaEducativa.dto.ResumenInscripcionMessage;
 import com.duoc.PlataformaEducativa.exception.ResourceNotFoundException;
 import com.duoc.PlataformaEducativa.model.Curso;
 import com.duoc.PlataformaEducativa.model.Inscripcion;
@@ -20,6 +21,7 @@ public class InscripcionService {
     private final CursoRepository cursoRepository;
     private final UsuarioRepository usuarioRepository;
     private final AwsService awsService;
+    private final ResumenProducerService resumenProducerService;
 
     // POST /inscripciones
     public Inscripcion crearInscripcion(Long usuarioId, List<Long> cursoIds) {
@@ -87,6 +89,18 @@ public class InscripcionService {
         sb.append("\n");
         sb.append("Total a pagar  : $").append(inscripcion.getTotalPagar()).append("\n");
         sb.append("====================================\n");
+
+        // Publicar el resumen en la cola RabbitMQ
+        ResumenInscripcionMessage mensaje = new ResumenInscripcionMessage(
+                inscripcion.getId(),
+                inscripcion.getUsuario().getNombre(),
+                inscripcion.getUsuario().getEmail(),
+                inscripcion.getCursos().stream().map(Curso::getNombre).toList(),
+                inscripcion.getTotalPagar(),
+                inscripcion.getFechaInscripcion(),
+                sb.toString()
+        );
+        resumenProducerService.enviarResumen(mensaje);
 
         return sb.toString().getBytes(java.nio.charset.StandardCharsets.UTF_8);
     }
